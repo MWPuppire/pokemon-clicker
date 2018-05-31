@@ -198,3 +198,12 @@ var generateEggShiny = function(egg){
 	}
 	return 0;
 };
+
+var breedSlotLeft = function(){
+	for(var i = 0; i<player.eggSlots; i++){
+		if(player.eggList[i] === null){
+			return true;
+		}
+	}
+	return false;
+}
