@@ -924,7 +924,7 @@ var testLegendary = function(tries){
         }
     }
     console.log(tries + " tries");
-    legendnames = Object.keys(legends)
+    var legendnames = Object.keys(legends)
     for (var i = 0; i < legendnames.length; i++) {
         console.log(legendnames[i] + ": " + legends[legendnames[i]]);
     };
