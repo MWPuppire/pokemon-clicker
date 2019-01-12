@@ -497,16 +497,9 @@ var gymDefeated = function(){
     if(first){
         player.gymBadges.push(currentGym.badgeReward);
         player.money += currentGym.moneyReward;
-        progressQuest('gainMoney', "none" , currentGym.moneyReward);
-    }
-    else {
+    } else {
         player.money += currentGym.moneyReward/10;
-        progressQuest('gainMoney', "none" , currentGym.moneyReward/10);
     }
-
-
-    progressQuest('clearGyms', currentGym.town , 1);
-
 
     var town = currentGym.town.slice(0,-4);
 

@@ -18,13 +18,11 @@ var initPossibleEggs = function(){
 	var fireEggs = ["Charmander"];
 	var waterEggs = ["Squirtle"];
 	var grassEggs = ["Bulbasaur"];
-	var fightEggs = ["Hitmonlee", "Hitmonchan"];
-	var electricEggs = ["Pikachu", "Electabuzz"];
+	var electricEggs = ["Pikachu"];
 	var dragonEggs = ["Dratini"];
 	possibleEggs[FIRE] = fireEggs;
 	possibleEggs[WATER] = waterEggs;
 	possibleEggs[GRASS] = grassEggs;
-	possibleEggs[FIGHTING] = fightEggs;
 	possibleEggs[ELECTRIC] = electricEggs;
 	possibleEggs[DRAGON] = dragonEggs;
 }
@@ -141,7 +139,6 @@ var hatchEgg = function(i){
 	var egg = player.eggList[i];
 	player.eggList[i] = null;
 	$.notify("You hatched " + egg.pokemon, 'success');
-	progressQuest('breedPokemon', "none", 1);
 	capturePokemon(egg.pokemon, generateEggShiny(egg));
 	player.totalBred++;
 	showEggs();

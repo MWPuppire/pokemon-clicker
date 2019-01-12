@@ -11,7 +11,7 @@ var checkEvolution = function(){
                 $.notify("Your "+curPokemon.name+" evolved into "+curPokemon.evolution+"!", 'success');
 
                 player.caughtPokemonList[i].evolved = 1; // Mark it as evolved.
-                capturePokemon(curPokemon.evolution); // Capture it's evolution
+                capturePokemon(curPokemon.evolution, player.caughtPokemonList[i].shiny, player.caughtPokemonList[i].experience); // Capture it's evolution
 
             }
         }

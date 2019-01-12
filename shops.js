@@ -4,8 +4,7 @@ var ShopItem = function(id, name, cost, costType) {
     var temp = {
         id: id,
         name: name,
-        cost: cost,
-        costType: costType
+        cost: cost
     }
     shopItemList.push(temp);
     return temp;
@@ -29,31 +28,32 @@ var Shop = function(name, itemList, shopChange){
     return temp;
 }
 
-var xAttack = ShopItem(6, "X Attack", 3000, 'money');
-var xClick = ShopItem(7, "X Click", 3000, 'money');
-var luckyIncense = ShopItem(8, "Lucky Incense", 10000, 'money');
-var itemMagnet = ShopItem(9, "Item Magnet", 6000, 'money');
-var xExp = ShopItem(10, "X Exp", 15000, 'money' );
-var thunderStone = ShopItem(12, "Thunder Stone", 25000, 'money');
-var fireStone = ShopItem(13, "Fire Stone", 25000, 'money');
-var leafStone = ShopItem(14, "Leaf Stone", 25000, 'money');
-var waterStone = ShopItem(15, "Water Stone", 25000, 'money');
-var moonStone = ShopItem(16, "Moon Stone", 25000, 'money');
-var tradeStone = ShopItem(17, "Trade Stone", 30000, 'money');
-var eevee = ShopItem(18, "Eevee", 100000, 'money');
-var porygon = ShopItem(19, "Porygon", 25000, 'money');
-var mrMime = ShopItem(20, "Mr. Mime", 50000, 'money');
-var jynx = ShopItem(21, "Jynx", 25000, 'money');
-var lickitung = ShopItem(22, "Lickitung", 12500, 'money');
-var lapras = ShopItem(30, "Lapras", 12500, "money");
-var aerodactyl = ShopItem(31, "Aerodactyl", 25000, "money");
-var fireEgg = ShopItem(23, "Fire Egg", 50000, 'money');
-var waterEgg = ShopItem(24, "Water Egg", 50000, 'money');
-var grassEgg = ShopItem(25, "Grass Egg", 50000, 'money');
-var fightingEgg = ShopItem(26, "Fighting Egg", 50000, 'money');
-var electricEgg = ShopItem(27, "Electric Egg", 50000, 'money');
-var dragonEgg = ShopItem(28, "Dragon Egg", 75000, 'money');
-var randomEgg = ShopItem(29, "Random Egg", 30000, 'money');
+var xAttack = ShopItem(6, "X Attack", 3000);
+var xClick = ShopItem(7, "X Click", 3000);
+var luckyIncense = ShopItem(8, "Lucky Incense", 10000);
+var itemMagnet = ShopItem(9, "Item Magnet", 6000);
+var xExp = ShopItem(10, "X Exp", 15000);
+var thunderStone = ShopItem(12, "Thunder Stone", 25000);
+var fireStone = ShopItem(13, "Fire Stone", 25000);
+var leafStone = ShopItem(14, "Leaf Stone", 25000);
+var waterStone = ShopItem(15, "Water Stone", 25000);
+var moonStone = ShopItem(16, "Moon Stone", 25000);
+var tradeStone = ShopItem(17, "Trade Stone", 30000);
+var eevee = ShopItem(18, "Eevee", 100000);
+var porygon = ShopItem(19, "Porygon", 25000);
+var mrMime = ShopItem(20, "Mr. Mime", 50000);
+var jynx = ShopItem(21, "Jynx", 25000);
+var lickitung = ShopItem(22, "Lickitung", 12500);
+var lapras = ShopItem(30, "Lapras", 12500);
+var aerodactyl = ShopItem(31, "Aerodactyl", 25000);
+var hitmonchop = ShopItem(32, "Hitmonchop", 25000);
+var hitmontop = ShopItem(33, "Hitmontop", 25000);
+var fireEgg = ShopItem(23, "Charmander Egg", 50000);
+var waterEgg = ShopItem(24, "Squirtle Egg", 50000);
+var grassEgg = ShopItem(25, "Bulbasaur Egg", 50000);
+var electricEgg = ShopItem(26, "Pikachu Egg", 50000);
+var dragonEgg = ShopItem(27, "Dratini Egg", 75000);
+var randomEgg = ShopItem(28, "Random Egg", 30000);
 
 var decreaseShopPriceDeviation = function(){
     for( var i = 0; i<player.shopPriceDeviation.length; i++){
@@ -73,48 +73,34 @@ var buyShopItem = function(itemName){
     var item;
     if(item = getShopItemByName(itemName)){
         var id = item.id;
-        if(enoughResources(item.cost*player.shopPriceDeviation[id], item.costType)){
-            payShopItem(item.cost*player.shopPriceDeviation[id], item.costType);
+        if(enoughResources(item.cost*player.shopPriceDeviation[id])){
+            payShopItem(item.cost*player.shopPriceDeviation[id]);
             player.shopPriceDeviation[id] = Math.floor(player.shopPriceDeviation[id] * 1.05 * 100)/100;
             gainItemByName(item.name)
             loadShop(curShop.name);
             updateStats();
         } else {
-            var string = "You don't have enough " + item.costType;
-            if( item.costType === "quest"){
-                string += " points";
-            }
+            var string = "You don't have enough money";
             $.notify(string);
         }
     }
 }
 
-var enoughResources = function(cost, costType){
+var enoughResources = function(cost){
     cost = Math.floor(cost);
-    if(costType === "money"){
-        return player.money >= cost;
-    }
-    if(costType === "quest"){
-        return player.questPoints >= cost;
-    }
-    return false;
+    return player.money >= cost;
 }
 
-var payShopItem = function(cost, costType){
+var payShopItem = function(cost){
     cost = Math.floor(cost);
-    if(costType === "money"){
-        player.money -= cost;
-    }
-    else if(costType === "quest"){
-        player.questPoints -= cost;
-    }
+    player.money -= cost;
 }
 
 var ViridianCityShop = function(){ return Shop("Viridian City", [xAttack, xClick, randomEgg]); }
 var PewterCityShop = function(){ return Shop("Pewter City", [xExp]); }
 var CeruleanCityShop = function(){ return Shop("Cerulean City", [waterStone, xAttack, waterEgg]) }
-var SaffronCityShop = function(){ return Shop("Saffron City", [moonStone, xClick, leafStone, fightingEgg, lapras]); }
-var LavenderTownShop = function(){ return Shop("Lavender Town", [itemMagnet, luckyIncense, grassEgg]) }
+var SaffronCityShop = function(){ return Shop("Saffron City", [moonStone, xClick, hitmonchan, hitmontop, lapras]); }
+var LavenderTownShop = function(){ return Shop("Lavender Town", [itemMagnet, luckyIncense, leafStone, grassEgg]) }
 var CeladonCityShop = function(){ return Shop("Celadon City", [eevee, porygon, jynx, mrMime, lickitung]) }
 var VermillionCityShop = function(){ return Shop("Vermillion City", [thunderStone, xExp, electricEgg]) }
 var FuchsiaCityShop = function(){ return Shop("Fuchsia City", [tradeStone, xExp, dragonEgg]) }
@@ -173,9 +159,6 @@ var getShop = function(townName){
 var getFullResourceName = function(type){
     if(type === "money"){
         return "coins";
-    }
-    if(type === "quest"){
-        return "quest points";
     }
     if(type === "mine"){
         return "diamonds";

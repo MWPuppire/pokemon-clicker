@@ -15,13 +15,12 @@ var itemList = [
 {id:15, name:"Water Stone", price:25000, use:"evolution", unUse:null, time: null, type:"evolution", instant:1, magnitude:0, flavorText: "A peculiar stone that makes certain species of Pokemon evolve. It is a clear light blue."},
 {id:16, name:"Moon Stone", price:25000, use:"evolution", unUse:null, time: null, type:"evolution", instant:1, magnitude:0, flavorText: "A peculiar stone that makes certain species of Pokemon evolve. It is as black as the night sky."},
 {id:17, name:"Trade Stone", price:25000, use:"evolution", unUse:null, time: null, type:"evolution", instant:1, magnitude:0, flavorText: "A peculiar stone that makes certain species of Pokemon evolve. It looks very lonely."},
-{id:23, name:"Fire Egg", price:25000, use:"breeding", unUse:null, time: null, type:"fire", instant:1, magnitude:0, flavorText: "A fire egg."},
-{id:24, name:"Water Egg", price:25000, use:"breeding", unUse:null, time: null, type:"water", instant:1, magnitude:0, flavorText: "A water egg."},
-{id:25, name:"Grass Egg", price:25000, use:"breeding", unUse:null, time: null, type:"grass", instant:1, magnitude:0, flavorText: "A grass egg."},
-{id:26, name:"Fighting Egg", price:25000, use:"breeding", unUse:null, time: null, type:"fighting", instant:1, magnitude:0, flavorText: "A fighting egg."},
-{id:27, name:"Electric Egg", price:25000, use:"breeding", unUse:null, time: null, type:"electric", instant:1, magnitude:0, flavorText: "An electric egg."},
-{id:28, name:"Dragon Egg", price:25000, use:"breeding", unUse:null, time: null, type:"dragon", instant:1, magnitude:0, flavorText: "A dragon egg."},
-{id:29, name:"Random Egg", price:25000, use:"breeding", unUse:null, time: null, type:"random", instant:1, magnitude:0, flavorText: "An egg of a random type."},
+{id:23, name:"Charmander Egg", price:25000, use:"breeding", unUse:null, time: null, type:"fire", instant:1, magnitude:0, flavorText: "A Charmander egg."},
+{id:24, name:"Squirtle Egg", price:25000, use:"breeding", unUse:null, time: null, type:"water", instant:1, magnitude:0, flavorText: "A Squirtle egg."},
+{id:25, name:"Bulbasaur Egg", price:25000, use:"breeding", unUse:null, time: null, type:"grass", instant:1, magnitude:0, flavorText: "A Bulbasaur egg."},
+{id:26, name:"Pikachu Egg", price:25000, use:"breeding", unUse:null, time: null, type:"electric", instant:1, magnitude:0, flavorText: "A Pikachu egg."},
+{id:27, name:"Dratini Egg", price:25000, use:"breeding", unUse:null, time: null, type:"dragon", instant:1, magnitude:0, flavorText: "A Dratini egg."},
+{id:28, name:"Random Egg", price:25000, use:"breeding", unUse:null, time: null, type:"random", instant:1, magnitude:0, flavorText: "An egg of a random type."},
 ]
 
 var itemsPerRoute = {
@@ -63,7 +62,6 @@ var gainRandomItem = function(route){
         var possibleItems = itemsPerRoute[route];
         var rand = Math.floor(Math.random()*possibleItems.length);
         randomItemName = possibleItems[rand];
-        progressQuest("findItems", "none", 1);
         player.totalItemsFound++;
         return gainItemByName(randomItemName);
     }

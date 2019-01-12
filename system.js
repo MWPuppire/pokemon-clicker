@@ -7,8 +7,6 @@ var clicks = 0;
 var fadingModal = false;
 var mythicals = ["Mew"]
 
-var firstQuest = {progress: 0, type: "defeatPokemonRoute", description: "Defeat 30 Pokemon on route 1", difficulty: 1, amount: 30, type2: 1, reward: 5, notified:0}
-
 var player = {
     clickAttack: 1,
     clickMultiplier: 1,
@@ -42,13 +40,6 @@ var player = {
     normalEffectiveTypeBonus: Array.apply(null, Array(18)).map(Number.prototype.valueOf,0),
     veryEffectiveTypeBonus: Array.apply(null, Array(18)).map(Number.prototype.valueOf,0),
     shopPriceDeviation: Array.apply(null, Array(100)).map(Number.prototype.valueOf,1),
-    questPoints:0,
-    curQuest: firstQuest,
-    questSkipToday: 0,
-    questCompletedTotal: 0,
-    questCompletedToday: 0,
-    questCompletedDailyMax: 0,
-    questDifficulty: 1,
     lastSeen: new Date().getDate(),
     eggList: [null, null, null, null],
     eggSlots: 4,
@@ -91,7 +82,6 @@ var player = {
     timePlayed: 0,
     lastSaved: new Date().getTime(),
     totalMoney: 0,
-    totalQuestPoints: 0,
     totalItemsFound: 0,
     totalClicks: 0,
     totalEggsHatched: 0,
@@ -349,22 +339,6 @@ $(document).ready(function(){
         showGymBadges();
     })
 
-    // Navbar Button controllers
-    $("body").on('click',"#questButton", function(){
-        $("#questModal").modal("show");
-        showCurQuest();
-    })
-
-    $("body").on('click',"#questCounter", function(){
-        // No action when completing quest
-        if(!questCompleted()/*already false*/ && !(player.curQuest.progress==0 && $('#smallQuestBar').width()>0)){
-            $("#questModal").modal("show");
-            showCurQuest();
-        } else if(questCompleted()) {
-            completeQuest();
-        }
-    })
-
     $("body").on('click',"#mineButton", function(){
         $("#mineModal").modal("show");
         showCurMine();
@@ -430,7 +404,6 @@ $(document).ready(function(){
     log("Have fun!");
 
     initPossibleEggs();
-    showCurQuest();
     showEggs();
     generateDailyDeals();
 });
@@ -473,11 +446,6 @@ var showPokedexModal = function(){
     showPokedex();
     showGymBadges();
     showStats();
-}
-
-var showQuestModal = function(){
-    $("#questModal").modal("show");
-    showCurQuest();
 }
 
 // Update all functions and save
@@ -594,7 +562,6 @@ var gainMoney = function(money, message){
         }
         money = Math.floor(money);
 
-        progressQuest('gainMoney', "none" , money);
         player.money += money
         player.totalMoney += money;
         log(message + money + "!");
@@ -647,9 +614,6 @@ var enemyDefeated = function(){
     canCatch = 1;
     if (curEnemy.alive){
         progressEgg(Math.floor(Math.sqrt(player.route)*100)/100);
-        progressQuest('defeatPokemonRoute', player.route, 1);
-        progressQuest('defeatPokemon', curEnemy.id, 1);
-
         decreaseShopPriceDeviation();
         log("You defeated the wild "+ curEnemy.name);
 
@@ -691,7 +655,6 @@ var enemyDefeated = function(){
             var chance = Math.floor(Math.random()*100+1);
             if(chance<=catchRate){
                 capturePokemon(curEnemy.name, curEnemy.shiny);
-                progressQuest('capturePokemonRoute', player.route , 1);
             }
 
             if( inProgress == 1){
@@ -711,7 +674,7 @@ var enemyDefeated = function(){
 
 // Capture a pokemon by moving it to the player.caughtPokemonList
 // Pokemon are adressable by name
-var capturePokemon = function(name, shiny){
+var capturePokemon = function(name, shiny, exp){
     var id = getPokemonByName(name).id-1;
     player.catchNumbers[id]++;
     if(!alreadyCaught(name)){
@@ -719,11 +682,10 @@ var capturePokemon = function(name, shiny){
             if (pokemonList[i].name == name){
                 pokemonList[i].timeStamp = Math.floor(Date.now() / 1000);
                 pokemonList[i].shiny = shiny;
-                pokemonList[i].experience = 0;
+                pokemonList[i].experience = exp || 0;
                 player.caughtPokemonList.push(pokemonList[i]);
                 if(shiny){
                     $.notify("You have caught a shiny "+ name +"!", {style: "shiny"})
-                    progressQuest('captureShinies', "none" , 1);
                 }
                 calculateAttack();
             }
@@ -745,7 +707,6 @@ var capturePokemon = function(name, shiny){
                     }
                     player.caughtPokemonList[i].shiny = 1;
                     $.notify("You have caught a shiny "+ name +"!", {style: "shiny"})
-                    progressQuest('captureShinies', "none" , 1);
                 }
             }
         } else {

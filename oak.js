@@ -130,7 +130,8 @@ var initOakItems = function(){
     addOakItem("Blaze Cassette", "images/oak/blazeCassette.png", 90, "Your eggs will hatch twice as fast!", 2);
     addOakItem("Cell Battery", "images/oak/cellBattery.png", 100, "Regenerate 25% more mining energy!", 1.25);
     addOakItem("Magnet Train Pass", "images/oak/johtoPass.png", 151, "Go to Johto with this pass to catch new Pokemon by boarding the Magnet Train (Saffron City)", null, 13);
-    addOakItem("S.S. Anne Pass", "images/oak/hoennPass.png", 251, "Go to Hoenn with this pass to catch new Pokemon using the S.S. Anne (Vermillion City)", null, 26);
+    addOakItem("S.S. Anne Pass", "images/oak/hoennPass.png", 251, "Go to Hoenn with this pass to catch new Pokemon by riding S.S. Anne (Vermillion City)", null, 26);
+    addOakItem("Rainbow Pass", "images/oak/seviiPass.png", 386, "Go to the Sevii Islands with this pass to catch new Pokemon by riding the S.S. Anne (Vermillion City)", null, 39);
     checkOakItems(1);
     showOakItems(1);
 }

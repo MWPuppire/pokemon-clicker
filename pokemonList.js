@@ -2461,7 +2461,7 @@ var pokemonList = [
         "type":[
             "Water"
         ],
-        "attack":110,
+        "attack":130,
         "route":null,
         "health":100,
         "levelType":"medium fast",
@@ -2479,7 +2479,7 @@ var pokemonList = [
         "type":[
             "Electric"
         ],
-        "attack":110,
+        "attack":130,
         "route":null,
         "health":100,
         "levelType":"medium fast",
@@ -2572,7 +2572,7 @@ var pokemonList = [
             "Rock",
             "Water"
         ],
-        "attack":80,
+        "attack":90,
         "route":39,
         "health":100,
         "levelType":"medium fast",
@@ -2647,7 +2647,7 @@ var pokemonList = [
             "Ice",
             "Flying"
         ],
-        "attack":95,
+        "attack":125,
         "route":100,
         "health":100,
         "levelType":"slow",
@@ -2664,7 +2664,6 @@ var pokemonList = [
         "evolved":0,
         "type":[
             "Electric",
-            "Flying"
         ],
         "attack":125,
         "route":100,

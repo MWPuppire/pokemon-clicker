@@ -31,10 +31,6 @@ var load = function(){
         $("#pickStarter").modal('show');
     }
 
-    if(player.version < 0.71){
-        player.questSkipToday = Math.max(0, player.questSkipToday-4);
-    }
-
     if( player.version < 0.8){
         resetXp();
     }

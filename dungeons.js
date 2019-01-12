@@ -499,8 +499,6 @@ var dungeonDefeated = function() {
     }
     var town = currentDungeon.name.slice(0, -8);
 
-    progressQuest('clearDungeons', currentDungeon.name , 1);
-
     moveToTown(town);
     resetDungeon();
 
